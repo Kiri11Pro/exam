@@ -1,5 +1,6 @@
 package com.pronchenko.top.soilcare.soilcare.dto;
 
+import com.pronchenko.top.soilcare.soilcare.entity.SoilAnalysis;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -16,17 +17,28 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class AnalysisRequest {
-    @NotNull @Min(0) @Max(14)
+    @NotNull
+    @Min(0)
+    @Max(14)
     private Double ph;
 
-    @NotNull @Positive
+    @NotNull
+    @Positive
     private Double nitrogen;
 
-    @NotNull @Positive
+    @NotNull
+    @Positive
     private Double phosphorus;
-
 
     @NotNull
     @Positive
     private Double potassium;
+    public SoilAnalysis toEntity() {
+        return SoilAnalysis.builder()
+                .ph(this.ph)
+                .nitrogen(this.nitrogen)
+                .phosphorus(this.phosphorus)
+                .potassium(this.potassium)
+                .build();
+    }
 }
